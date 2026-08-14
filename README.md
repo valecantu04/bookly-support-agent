@@ -62,6 +62,7 @@ Open [http://localhost:3000](http://localhost:3000) and start chatting.
 | `get_order_status` | Look up an order by ID |
 | `initiate_return` | Start a return, get an RMA number |
 | `search_policy` | Retrieve policy text (shipping, returns, passwords) |
+| `recommend_books` | Suggest books based on genre, mood, or author preference |
 
 All tools use deterministic mock data — swap handlers in `src/agent/tools.ts` to connect a real backend.
 
