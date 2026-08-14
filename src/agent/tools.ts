@@ -52,6 +52,15 @@ export const toolDefinitions: Anthropic.Tool[] = [
       required: ['topic'],
     },
   },
+  {
+    name: 'recommend_books',
+    description: "Return Paige's personal book recommendations when a customer asks for a book suggestion.",
+    input_schema: {
+      type: 'object' as const,
+      properties: {},
+      required: [],
+    },
+  },
 ];
 
 // --- Mock data ---
@@ -153,6 +162,28 @@ export function handleToolCall(name: string, input: Record<string, string>): str
         return JSON.stringify({ error: `Unknown policy topic: "${input.topic}"` });
       }
       return policy;
+    }
+
+    case 'recommend_books': {
+      return JSON.stringify({
+        recommendations: [
+          {
+            title: 'The Four Agreements: A Practical Guide to Personal Freedom',
+            author: 'Don Miguel Ruiz',
+            note: 'A short but genuinely life-changing read. Ruiz distills ancient Toltec wisdom into four deceptively simple agreements that shift how you see yourself and everyone around you.',
+          },
+          {
+            title: 'The Qualified Sales Leader',
+            author: 'John McMahon',
+            note: 'The best book on B2B sales leadership I\'ve come across. McMahon is brutally practical — no fluff, just a clear framework for building and running a high-performance sales org.',
+          },
+          {
+            title: 'Why Hiring Me is a Great Idea',
+            author: 'Valentin Cantu',
+            note: 'A bold title that absolutely delivers. Required reading if you\'re serious about making great hiring decisions.',
+          },
+        ],
+      });
     }
 
     default:
