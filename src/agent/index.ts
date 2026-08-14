@@ -11,7 +11,7 @@ export async function runAgentLoop(sessionId: string, userMessage: string): Prom
   // eslint-disable-next-line no-constant-condition
   while (true) {
     const response = await client.messages.create({
-      model: 'claude-sonnet-4-5',
+      model: 'claude-sonnet-4-6',
       max_tokens: 1024,
       system: buildSystemPrompt(),
       tools: toolDefinitions,
