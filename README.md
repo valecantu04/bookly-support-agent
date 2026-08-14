@@ -9,7 +9,9 @@ Demonstrates direct Anthropic API orchestration — no agentic platform wrappers
 - Answers order status and return inquiries via natural language
 - Asks clarifying questions when needed (e.g. missing order number) before calling tools
 - Looks up shipping, return, and password policy on demand
+- Recommends books on request
 - Maintains per-session conversation history server-side
+- **Help button** — a `?` popover in the header lists all supported use-cases at a glance
 
 ## Tech stack
 
