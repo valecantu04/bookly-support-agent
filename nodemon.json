@@ -1,5 +1,5 @@
 {
   "watch": ["src/server", "src/agent"],
   "ext": "ts",
-  "exec": "tsx src/server/index.ts"
+  "exec": "tsx --env-file .env src/server/index.ts"
 }

@@ -1,12 +1,9 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import path from 'path';
-import dotenv from 'dotenv';
 import { runAgentLoop } from '../agent';
 import { sessionMiddleware, getSessionId } from './session';
 import type { ChatRequest, ChatResponse } from '../types';
-
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT ?? 3000;
@@ -18,6 +15,17 @@ app.use(express.static(path.join(__dirname, '../../public')));
 
 app.get('/', (_req, res) => {
   res.sendFile(path.join(__dirname, '../../src/frontend/index.html'));
+});
+
+app.get('/api/chat/greeting', async (req, res) => {
+  const sessionId = getSessionId(req);
+  try {
+    const reply = await runAgentLoop(sessionId, 'Hello');
+    res.json({ reply });
+  } catch (err) {
+    console.error('Greeting error:', err);
+    res.status(500).json({ error: 'Something went wrong.' });
+  }
 });
 
 app.post('/api/chat', async (req, res) => {

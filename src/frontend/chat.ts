@@ -58,6 +58,16 @@ form.addEventListener('submit', (e) => {
 });
 
 // Greet the user on load
-window.addEventListener('DOMContentLoaded', () => {
-  appendMessage('assistant', "Hi! I'm the Bookly support assistant. I can help you with order status, returns, and questions about our policies. What can I help you with today?");
+window.addEventListener('DOMContentLoaded', async () => {
+  setLoading(true);
+  try {
+    const res = await fetch('/api/chat/greeting');
+    const data = (await res.json()) as { reply: string; error?: string };
+    appendMessage('assistant', res.ok ? data.reply : (data.error ?? 'Something went wrong.'));
+  } catch {
+    appendMessage('assistant', "Hi! I'm Paige, your Bookly support assistant. How can I help you today?");
+  } finally {
+    setLoading(false);
+    input.focus();
+  }
 });
